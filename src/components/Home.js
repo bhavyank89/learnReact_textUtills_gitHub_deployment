@@ -18,9 +18,7 @@ export default function Home(props) {
         props.showAlert("Converted to lower case", "success");
     }
     const copyClip = () => {
-        var newText = document.getElementById("myBox");
-        newText.select();
-        navigator.clipboard.writeText(newText.value);
+        navigator.clipboard.writeText(text);
         props.showAlert("Copied to Clipboard", "success");
     }
     const clearText = () => {
@@ -41,7 +39,7 @@ export default function Home(props) {
         props.showAlert("cleared extra space", "success");
     }
     const wordCount = () => {
-        let splitWordArray = text.split(" ");
+        let splitWordArray = text.split(/\s+/);
         let unspacedWordArray = splitWordArray.filter(element => element !== "");
 
         return unspacedWordArray.length;
@@ -58,11 +56,11 @@ export default function Home(props) {
                 <div className="form-group">
                     <h1 style={headingTextStyle} className="my-3">Enter Text Here :</h1>
                     <textarea style={textAreaStyle} className="form-control" value={text} onChange={handleOnChange} placeholder="Enter text here" rows="8" id="myBox"></textarea>
-                    <button className="btn btn-primary my-3 mx-3" onClick={ConvertUpCase}>ConvertUpCase</button>
-                    <button className="btn btn-primary my-3 mx-3" onClick={ConvertLpCase}>ConvertLpCase</button>
-                    <button className="btn btn-primary my-3 mx-3" onClick={copyClip}>copyClip</button>
-                    <button className="btn btn-primary my-3 mx-3" onClick={clearText}>clearText</button>
-                    <button className="btn btn-primary my-3 mx-3" onClick={clearExtraSpace}>clearExtraSpace</button>
+                    <button disabled={text.length===0} className="btn btn-primary my-3 mx-3" onClick={ConvertUpCase}>ConvertUpCase</button>
+                    <button disabled={text.length===0} className="btn btn-primary my-3 mx-3" onClick={ConvertLpCase}>ConvertLpCase</button>
+                    <button disabled={text.length===0} className="btn btn-primary my-3 mx-3" onClick={copyClip}>copyClip</button>
+                    <button disabled={text.length===0} className="btn btn-primary my-3 mx-3" onClick={clearExtraSpace}>clearExtraSpace</button>
+                    <button disabled={text.length===0} className="btn btn-primary my-3 mx-3" onClick={clearText}>clearText</button>
                     <h4 style={headingTextStyle}>Content Details : </h4>
                     <p>Word Count - {wordCount()} Character Count - {characterCount()}</p>
                     <h4 style={headingTextStyle}>Preview Text : </h4>
